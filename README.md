@@ -45,6 +45,10 @@ sudo pacman -S tk
 pytest
 ```
 
+## License
+
+osArchive is open source under the MIT License. See [LICENSE](LICENSE).
+
 ## Version 0.1
 
 - Local cases
