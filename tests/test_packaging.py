@@ -8,14 +8,16 @@ def test_pyproject_exposes_osarchive_script():
     assert data["project"]["scripts"]["osarchive"] == "osint_tool.app:main"
 
 
-def test_project_declares_mit_license():
+def test_project_declares_noncommercial_public_license():
     data = tomllib.loads(Path("pyproject.toml").read_text())
     license_text = Path("LICENSE").read_text()
 
-    assert data["project"]["license"] == "MIT"
-    assert license_text.startswith("MIT License")
+    assert data["project"]["license"] == "LicenseRef-osArchive-NonCommercial"
+    assert license_text.startswith("osArchive Non-Commercial Public License")
     assert "Copyright (c) 2026 Archive3" in license_text
-    assert "Permission is hereby granted, free of charge" in license_text
+    assert "You may not sell the Software or any modified version" in license_text
+    assert "commercial use is not permitted" in license_text
+    assert "publicly available, free of charge" in license_text
 
 
 def test_linux_release_launcher_exists():

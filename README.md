@@ -47,7 +47,10 @@ pytest
 
 ## License
 
-osArchive is open source under the MIT License. See [LICENSE](LICENSE).
+osArchive is source available under a custom non-commercial public license.
+You may use, modify, and share it for free, but you may not sell it or any
+modified version. Published forks must keep their source public and free under
+the same license. See [LICENSE](LICENSE).
 
 ## Version 0.1
 

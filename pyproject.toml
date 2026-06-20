@@ -2,7 +2,7 @@
 name = "osint-tool"
 version = "0.1.0"
 description = "Local OSINT investigation board"
-license = "MIT"
+license = "LicenseRef-osArchive-NonCommercial"
 requires-python = ">=3.11"
 dependencies = []
 
