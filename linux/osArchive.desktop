@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=osArchive
+Comment=Local OSINT investigation board
+Exec=osarchive
+Terminal=false
+Categories=Utility;Security;

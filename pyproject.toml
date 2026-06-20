@@ -5,6 +5,12 @@ description = "Local OSINT investigation board"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.scripts]
+osarchive = "osint_tool.app:main"
+
+[tool.setuptools.package-data]
+osint_tool = ["transforms/*.json"]
+
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 

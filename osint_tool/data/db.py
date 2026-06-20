@@ -40,7 +40,8 @@ create table if not exists board_items (
     width real not null default 180,
     height real not null default 96,
     color text not null default '#26313b',
-    collapsed integer not null default 0
+    collapsed integer not null default 0,
+    is_main integer not null default 0
 );
 
 create table if not exists relationships (
@@ -99,6 +100,15 @@ create table if not exists lookup_results (
 """
 
 
+def _ensure_column(connection: sqlite3.Connection, table: str, column: str, definition: str) -> None:
+    columns = {
+        row["name"]
+        for row in connection.execute(f"pragma table_info({table})").fetchall()
+    }
+    if column not in columns:
+        connection.execute(f"alter table {table} add column {column} {definition}")
+
+
 def connect(path: str | Path) -> sqlite3.Connection:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -106,6 +116,7 @@ def connect(path: str | Path) -> sqlite3.Connection:
     connection.row_factory = sqlite3.Row
     connection.execute("pragma foreign_keys = on")
     connection.executescript(SCHEMA)
+    _ensure_column(connection, "board_items", "is_main", "integer not null default 0")
     connection.execute(
         "insert or ignore into schema_migrations(version, applied_at) values (?, datetime('now'))",
         (SCHEMA_VERSION,),

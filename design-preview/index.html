@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>osArchive Design Preview</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="preview-app">
+      <header class="preview-header">
+        <div>
+          <p class="eyebrow">osArchive interface directions</p>
+          <h1>Choose a board style</h1>
+        </div>
+        <nav class="theme-tabs" aria-label="Design concepts">
+          <button class="theme-tab active" type="button" data-target="tactical">1 Tactical</button>
+          <button class="theme-tab" type="button" data-target="forensic">2 Forensic</button>
+          <button class="theme-tab" type="button" data-target="command">3 Command</button>
+        </nav>
+      </header>
+
+      <section class="concept-grid" aria-label="Design concept previews">
+        <article class="concept-panel active" data-theme="tactical">
+          <div class="mock-window tactical">
+            <div class="topbar">
+              <strong>osArchive</strong>
+              <span>Case: Public profile trace</span>
+              <div class="window-actions"><i></i><i></i><i></i></div>
+            </div>
+            <div class="workspace">
+              <aside class="tool-rail">
+                <button>Case</button>
+                <button>User</button>
+                <button>Scan</button>
+                <button>Graph</button>
+                <button>Clear</button>
+              </aside>
+              <section class="graph-board">
+                <div class="grid-lines"></div>
+                <svg viewBox="0 0 720 420" aria-hidden="true">
+                  <path d="M352 190 L188 92 M352 190 L552 86 M352 190 L602 286 M352 190 L172 296" />
+                </svg>
+                <div class="node main-node user-node" style="left: 43%; top: 39%;">
+                  <span>USERNAME</span>
+                  <strong>target_alpha</strong>
+                  <small>Main node</small>
+                </div>
+                <div class="node" style="left: 17%; top: 13%;"><span>SITE</span><strong>GitHub</strong></div>
+                <div class="node amber" style="left: 70%; top: 12%;"><span>DOMAIN</span><strong>example.net</strong></div>
+                <div class="node green" style="left: 77%; top: 65%;"><span>PROFILE</span><strong>Found</strong></div>
+                <div class="node red" style="left: 15%; top: 68%;"><span>IP</span><strong>198.51.100.8</strong></div>
+                <div class="orbit-ring"></div>
+              </section>
+              <aside class="inspector">
+                <h2>Inspector</h2>
+                <div class="metric-row"><span>Signals</span><strong>28</strong></div>
+                <div class="metric-row"><span>Confidence</span><strong>High</strong></div>
+                <div class="result-list">
+                  <div></div><div></div><div></div><div></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+          <footer>
+            <strong>1. Tactical Analyst</strong>
+            <span>Dense black workspace, gold focus states, serious OSINT board energy.</span>
+          </footer>
+        </article>
+
+        <article class="concept-panel" data-theme="forensic">
+          <div class="mock-window forensic">
+            <div class="topbar">
+              <strong>osArchive</strong>
+              <span>Evidence map</span>
+              <div class="window-actions"><i></i><i></i><i></i></div>
+            </div>
+            <div class="workspace">
+              <aside class="tool-rail">
+                <button>Import</button>
+                <button>Entity</button>
+                <button>Lookup</button>
+                <button>Notes</button>
+              </aside>
+              <section class="graph-board">
+                <svg viewBox="0 0 720 420" aria-hidden="true">
+                  <path d="M360 196 C260 126 222 106 174 84 M360 196 C455 120 510 110 578 90 M360 196 C472 230 518 270 594 322 M360 196 C262 245 228 282 156 320" />
+                </svg>
+                <div class="node main-node user-node" style="left: 43%; top: 40%;">
+                  <span>SUBJECT</span>
+                  <strong>target_alpha</strong>
+                  <small>Primary</small>
+                </div>
+                <div class="node" style="left: 14%; top: 12%;"><span>SOURCE</span><strong>Report</strong></div>
+                <div class="node teal" style="left: 72%; top: 13%;"><span>URL</span><strong>Profile</strong></div>
+                <div class="node amber" style="left: 74%; top: 72%;"><span>DNS</span><strong>Record</strong></div>
+                <div class="node green" style="left: 12%; top: 72%;"><span>NOTE</span><strong>Finding</strong></div>
+              </section>
+              <aside class="inspector">
+                <h2>Evidence</h2>
+                <div class="metric-row"><span>Reviewed</span><strong>16</strong></div>
+                <div class="metric-row"><span>Open</span><strong>4</strong></div>
+                <div class="result-list">
+                  <div></div><div></div><div></div><div></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+          <footer>
+            <strong>2. Forensic Lab</strong>
+            <span>Brighter, calmer, easier to read for long investigation sessions.</span>
+          </footer>
+        </article>
+
+        <article class="concept-panel" data-theme="command">
+          <div class="mock-window command">
+            <div class="topbar">
+              <strong>osArchive</strong>
+              <span>Live trace board</span>
+              <div class="window-actions"><i></i><i></i><i></i></div>
+            </div>
+            <div class="workspace">
+              <aside class="tool-rail">
+                <button>Trace</button>
+                <button>Orbit</button>
+                <button>Scan</button>
+                <button>Export</button>
+              </aside>
+              <section class="graph-board">
+                <div class="stars"></div>
+                <svg viewBox="0 0 720 420" aria-hidden="true">
+                  <path d="M358 194 L196 98 M358 194 L548 72 M358 194 L604 210 M358 194 L528 334 M358 194 L174 310" />
+                </svg>
+                <div class="node main-node user-node" style="left: 43%; top: 39%;">
+                  <span>ANCHOR</span>
+                  <strong>target_alpha</strong>
+                  <small>Orbit locked</small>
+                </div>
+                <div class="node green" style="left: 18%; top: 14%;"><span>HIT</span><strong>Profile</strong></div>
+                <div class="node amber" style="left: 70%; top: 8%;"><span>SCAN</span><strong>Roblox</strong></div>
+                <div class="node green" style="left: 79%; top: 45%;"><span>SITE</span><strong>Forum</strong></div>
+                <div class="node" style="left: 66%; top: 75%;"><span>URL</span><strong>Mirror</strong></div>
+                <div class="node red" style="left: 15%; top: 72%;"><span>RISK</span><strong>Flag</strong></div>
+                <div class="orbit-ring"></div>
+              </section>
+              <aside class="inspector">
+                <h2>Trace</h2>
+                <div class="metric-row"><span>Hits</span><strong>42</strong></div>
+                <div class="metric-row"><span>Routes</span><strong>9</strong></div>
+                <div class="result-list">
+                  <div></div><div></div><div></div><div></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+          <footer>
+            <strong>3. Command Map</strong>
+            <span>More dramatic, with stronger motion and main-node focus.</span>
+          </footer>
+        </article>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

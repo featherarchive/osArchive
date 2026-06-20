@@ -112,12 +112,75 @@ class Repository:
         ).fetchone()
         return self._entity_from_row(row) if row else None
 
+    def find_entity(self, case_id: int, entity_type: str, title: str) -> Entity | None:
+        row = self.connection.execute(
+            "select * from entities where case_id = ? and type = ? and title = ? order by id limit 1",
+            (case_id, entity_type, title),
+        ).fetchone()
+        return self._entity_from_row(row) if row else None
+
+    def delete_entity(self, entity_id: int) -> None:
+        self.connection.execute("delete from lookup_results where entity_id = ?", (entity_id,))
+        self.connection.execute(
+            "delete from relationships where source_entity_id = ? or target_entity_id = ?",
+            (entity_id, entity_id),
+        )
+        self.connection.execute("delete from entities where id = ?", (entity_id,))
+        self.connection.commit()
+
+    def delete_case_entities(self, case_id: int) -> None:
+        self.connection.execute(
+            """
+            delete from lookup_results
+            where entity_id in (select id from entities where case_id = ?)
+            """,
+            (case_id,),
+        )
+        self.connection.execute("delete from relationships where case_id = ?", (case_id,))
+        self.connection.execute("delete from entities where case_id = ?", (case_id,))
+        self.connection.commit()
+
     def update_board_position(self, entity_id: int, x: float, y: float) -> None:
         self.connection.execute(
             "update board_items set x = ?, y = ? where entity_id = ?",
             (x, y, entity_id),
         )
         self.connection.commit()
+
+    def set_board_collapsed(self, entity_id: int, collapsed: bool) -> None:
+        self.connection.execute(
+            "update board_items set collapsed = ? where entity_id = ?",
+            (1 if collapsed else 0, entity_id),
+        )
+        self.connection.commit()
+
+    def set_main_entity(self, case_id: int, entity_id: int) -> None:
+        self.connection.execute(
+            """
+            update board_items
+            set is_main = 0
+            where entity_id in (select id from entities where case_id = ?)
+            """,
+            (case_id,),
+        )
+        self.connection.execute(
+            "update board_items set is_main = 1 where entity_id = ?",
+            (entity_id,),
+        )
+        self.connection.commit()
+
+    def get_main_entity_id(self, case_id: int) -> int | None:
+        row = self.connection.execute(
+            """
+            select board_items.entity_id from board_items
+            join entities on entities.id = board_items.entity_id
+            where entities.case_id = ? and board_items.is_main = 1
+            order by board_items.entity_id
+            limit 1
+            """,
+            (case_id,),
+        ).fetchone()
+        return int(row["entity_id"]) if row else None
 
     def get_board_items(self, case_id: int) -> dict[int, dict[str, Any]]:
         rows = self.connection.execute(
@@ -222,6 +285,23 @@ class Repository:
         rows = self.connection.execute(
             "select * from lookup_results where entity_id = ? order by id",
             (entity_id,),
+        ).fetchall()
+        results = []
+        for row in rows:
+            item = dict(row)
+            item["result"] = json.loads(item.pop("result_json"))
+            results.append(item)
+        return results
+
+    def list_lookup_results_for_case(self, case_id: int) -> list[dict[str, Any]]:
+        rows = self.connection.execute(
+            """
+            select lookup_results.* from lookup_results
+            join entities on entities.id = lookup_results.entity_id
+            where entities.case_id = ?
+            order by lookup_results.id desc
+            """,
+            (case_id,),
         ).fetchall()
         results = []
         for row in rows:

@@ -1,8 +1,18 @@
+import os
 from pathlib import Path
 
 
-def get_default_db_path() -> Path:
-    return Path.home() / ".local" / "share" / "osint-tool" / "osint.sqlite3"
+def get_default_db_path(
+    platform_name: str | None = None,
+    appdata: str | None = None,
+    home: Path | None = None,
+) -> Path:
+    platform_name = platform_name or os.name
+    home = home or Path.home()
+    if platform_name == "nt":
+        base = Path(appdata or os.environ.get("APPDATA") or home / "AppData" / "Roaming")
+        return base / "osArchive" / "osint.sqlite3"
+    return home / ".local" / "share" / "osint-tool" / "osint.sqlite3"
 
 
 def main() -> None:

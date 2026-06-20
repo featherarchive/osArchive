@@ -4,7 +4,7 @@ class TkUnavailableError(RuntimeError):
 
 try:
     import tkinter as tk
-    from tkinter import simpledialog, ttk
+    from tkinter import messagebox, simpledialog, ttk
 except ImportError as exc:
     _IMPORT_ERROR = exc
 
@@ -19,6 +19,7 @@ except ImportError as exc:
         Canvas = _MissingWidget
         Text = _MissingWidget
         StringVar = _MissingWidget
+        Toplevel = _MissingWidget
 
         @staticmethod
         def Tk():
@@ -42,6 +43,22 @@ except ImportError as exc:
                 "(for example, `tk` on Arch/CachyOS) and rerun the app."
             ) from _IMPORT_ERROR
 
+    class _MissingMessageBox:
+        @staticmethod
+        def askyesno(*args, **kwargs):
+            raise TkUnavailableError(
+                "Tkinter native libraries are not available. Install the OS Tk package "
+                "(for example, `tk` on Arch/CachyOS) and rerun the app."
+            ) from _IMPORT_ERROR
+
+        @staticmethod
+        def showinfo(*args, **kwargs):
+            raise TkUnavailableError(
+                "Tkinter native libraries are not available. Install the OS Tk package "
+                "(for example, `tk` on Arch/CachyOS) and rerun the app."
+            ) from _IMPORT_ERROR
+
     tk = _MissingTkModule()
     ttk = _MissingTtkModule()
     simpledialog = _MissingSimpleDialog()
+    messagebox = _MissingMessageBox()
