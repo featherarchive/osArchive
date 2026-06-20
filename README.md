@@ -2,6 +2,8 @@
 
 Local desktop OSINT investigation board built with Python, Tkinter, and SQLite.
 
+![osArchive command map screenshot](docs/assets/osarchive-command-map.png)
+
 ## Run
 
 Install locally:
