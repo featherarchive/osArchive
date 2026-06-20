@@ -5,6 +5,9 @@ from osint_tool.ui.theme import COMMAND_THEME
 from osint_tool.ui.tkcompat import tk, ttk
 
 
+INSPECTOR_FOOTER_CREDIT = "Made by <Archive3"
+
+
 class Inspector(ttk.Frame):
     def __init__(self, parent, on_save, list_lookup_results=None):
         super().__init__(parent, padding=8)
@@ -31,6 +34,12 @@ class Inspector(ttk.Frame):
         self.description.pack(fill="x")
         ttk.Button(self, text="Save", command=self._save).pack(fill="x", pady=(8, 12))
         self.lookup_frame = ttk.Frame(self)
+        self.credit_label = ttk.Label(
+            self,
+            text=INSPECTOR_FOOTER_CREDIT,
+            foreground=COMMAND_THEME["muted"],
+        )
+        self.credit_label.pack(side="bottom", anchor="e", pady=(8, 0))
         self.lookup_frame.pack(fill="both", expand=True)
 
     def show_entity(self, entity):
